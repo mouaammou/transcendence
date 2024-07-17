@@ -1,4 +1,5 @@
 from django.db import models
+from decimal import Decimal
 
 # Create your models here.
 
@@ -9,4 +10,9 @@ class Product(models.Model):
 
 	def __str__(self):
 		return self.title
+	
+	@property
+	def get_discount(self):
+		# return (float(self.price) * 0.8)
+		return (self.price * Decimal(0.8))
 
