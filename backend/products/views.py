@@ -1,25 +1,36 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from .models import Product
 from .serializers import ProductSerializer
 
-class ProductDetailAPIView(generics.RetrieveAPIView):
+# class ProductCreateAPIView(generics.CreateAPIView): #crearte, get
+# 	queryset = Product.objects.all()
+# 	serializer_class = ProductSerializer
+
+# class ProductUpdateAPIView(generics.UpdateAPIView): #update, post, put
+# 	queryset = Product.objects.all()
+# 	serializer_class = ProductSerializer
+
+# class ProductDetailAPIView(generics.RetrieveAPIView): #read, get
+# 	queryset = Product.objects.all()
+# 	serializer_class = ProductSerializer
+
+# class ProductDeleteAPIView(generics.DestroyAPIView): #delete
+# 	queryset = Product.objects.all()
+# 	serializer_class = ProductSerializer
+
+# class ProductListAPIView(generics.ListAPIView): #list all products
+# 	queryset = Product.objects.all()
+# 	serializer_class = ProductSerializer
+
+class ProductListCreateAPIView(generics.ListCreateAPIView):
 	queryset = Product.objects.all()
 	serializer_class = ProductSerializer
+	permission_classes = [AllowAny]
 
-class ProductCreateAPIView(generics.CreateAPIView):
-	queryset = Product.objects.all()
-	serializer_class = ProductSerializer
+class ProductRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
-	def create(self, request, *args, **kwargs):
-		super().create(request, *args, **kwargs)
-		return Response({"good, is created":"top"}, status=201)
-
-	def perform_create(self, serializer):
-		print(f"serialiaer data {serializer.validated_data}")
-		title = serializer.validated_data.get("title")
-		content = serializer.validated_data.get("content") or None
-		if content is None:
-			content = title
-		serializer.save(content=content)

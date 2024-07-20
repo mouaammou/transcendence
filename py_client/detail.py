@@ -1,7 +1,8 @@
 import requests
 
-endpoint1 = "http://127.0.0.1:8000/api/"
-endpoint2 = "http://localhost:8000/api/products"
+id = input()
+
+endpoint2 = "http://localhost:8000/api/products/"+id+"/detail"
 
 # get_response = requests.post(endpoint1, json={
 # 			'title': 'None',
