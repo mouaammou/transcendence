@@ -5,5 +5,5 @@ from . import views
 
 urlpatterns = [
 	path("auth/", obtain_auth_token, name="generate token for a user"),
-	path("", views.json_get)
+	path("", views.json_get),
 ]

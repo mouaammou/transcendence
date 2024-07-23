@@ -11,7 +11,7 @@ def json_get(request):
 	if request.method == 'GET':
 		data = Product.objects.all()
 		seriaze_data = ProductSerializer(data, many=True)
-		return Response(seriaze_data.data, status=200)	
+		return Response(seriaze_data.data, status=200)
 
 	seriaze_data = ProductSerializer(data=request.data)
 	if (seriaze_data.is_valid(raise_exception=True)):
